@@ -9,12 +9,14 @@ const connection: ConnectionObject = {}; //connection object
 
 //Database connection
 async function dbConnect(): Promise<void> {
+  //check if connection is already established
   if (connection.isConnected) {
     console.log("Already connected to database");
     return;
   }
 
   try {
+    //connect to database logic
     const db = await mongoose.connect(process.env.MONGO_URI || "", {});
     console.log(db.connection);
 
@@ -27,4 +29,4 @@ async function dbConnect(): Promise<void> {
   }
 }
 
-export default dbConnect();
+export default dbConnect;
