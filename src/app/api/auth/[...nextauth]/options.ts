@@ -7,7 +7,7 @@ import UserModel from "@/model/User.model";
 
 
 export const authOptions: NextAuthOptions = {
-  //kyu ki options ko hamne alag file me likha hai isliye expoty
+  //kyu ki options ko hamne alag file me likha hai isliye export
   providers: [
     CredentialsProvider({
       name: "credentials",
