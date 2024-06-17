@@ -13,7 +13,7 @@ import { ApiResponse } from "@/types/ApiResponse"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Loader2, LoaderCircle } from "lucide-react"
+import { Loader2, LoaderCircle, LoaderPinwheel, LucideLoaderCircle } from "lucide-react"
 
 
 const page = () => {
@@ -45,7 +45,7 @@ const page = () => {
                 setUsernameMessage('')   //last time request ki error ko empty kar do
                 try {
                     const response = await axios.get(`/api/check-username-unique?username=${username}`)
-                    let message=response.data.message;
+                    let message = response.data.message;
                     console.log(message);
                     setUsernameMessage(message)
                 } catch (error) {
@@ -63,7 +63,7 @@ const page = () => {
     }, [username])
 
     const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
-        setIsSubmitting(true);   //kaam kar raha hu abhi loader laga lo
+        setIsSubmitting(true);     //kaam kar raha hu abhi loader laga lo
         try {
             //passing the data
             const response = await axios.post<ApiResponse>('/api/sign-up', data);
@@ -79,7 +79,7 @@ const page = () => {
             const axiosError = error as AxiosError<ApiResponse>
             let errorMessage = axiosError.response?.data.message;
             toast({
-                title: "Signup failes",
+                title: "Signup failed",
                 description: errorMessage,
                 variant: "destructive"
             })
@@ -89,14 +89,16 @@ const page = () => {
     }
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-0 shadow-md">
+        <div className="flex justify-center items-center min-h-screen bg-bgColor">
+            <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
                 <div className="text-center">
-                    <h1 className="text-4xl font-extrabold tracking-wider lg-text-5xl mb-6">
-                        Welcome to AMA
-                    </h1>
-                    <p className="mb-4">Sign up to start your anonymous adventure</p>
-                </div>
+                <img 
+                src="/login2.svg" 
+                alt="Login" 
+                className="w-28 h-28 mx-auto transition-transform transform hover:scale-105 delay-400"
+            />
+            <h1 className="text-4xl tracking-wider lg-text-3xl mb-2 mt-4 uppercase">Register</h1>
+                </div>  
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}
                         className="space-y-6">
@@ -107,13 +109,13 @@ const page = () => {
                                 <FormItem>
                                     <FormLabel>Username</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="email" {...field}
+                                        <Input placeholder="username" {...field}
                                             onChange={(e) => {
                                                 field.onChange(e)
                                                 debounced(e.target.value)
                                             }} />
                                     </FormControl>
-                                    {isCheckingUsername && <Loader2 className="animate-apin" />}
+                                    {isCheckingUsername && <LucideLoaderCircle className="animate-apin" />}
                                     <p className={`text-sm ${usernameMessage === "Username is available" ? 'text-green-500' : 'text-red-300'}`}>{usernameMessage}
                                     </p>
                                     <FormMessage />
@@ -126,13 +128,9 @@ const page = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="test@test.com" {...field}
-                                            onChange={(e) => {
-                                                field.onChange(e)
-                                                setUsername(e.target.value)
-                                            }} />
-                                    </FormControl>
+                                    <Input {...field} name="email" 
+                                    placeholder="test@test.com"
+                                    />
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -143,18 +141,14 @@ const page = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
-                                    <FormControl>
-                                        <Input type="password" placeholder="123456" {...field}
-                                            onChange={(e) => {
-                                                field.onChange(e)
-                                                setUsername(e.target.value)
-                                            }} />
-                                    </FormControl>
+                                    <Input type="password" {...field} name="password"
+                                    placeholder="123456"
+                                    />
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit" disabled={isSubmitting}>
+                        <Button type="submit"  className="w-full sm:w-auto flex justify-center items-center" disabled={isSubmitting}>
                             {/* manipulating text */}
                             {
                                 isSubmitting ? (
