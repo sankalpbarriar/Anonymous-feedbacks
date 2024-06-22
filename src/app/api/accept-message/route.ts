@@ -23,14 +23,14 @@ export async function POST(request: Request) {
   }
 
   const userId = user._id;
-  const { acceptingMessages } = await request.json(); //flag
+  const { acceptMessages } = await request.json(); //flag
 
   // toggle accept message
   try {
     const updatedUser = await UserModel.findByIdAndUpdate(
       //it takes two parameter 1st to search and 2nd what to update
       userId,
-      { isAcceptingMessage: acceptingMessages },
+      { isAcceptingMessage: acceptMessages },
       { new: true }
     );
 
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
           success: false,
           message: "failed to update user status for accepting message",
         },
-        { status: 401 }
+        { status: 404 }
       );
     }
     //else
@@ -82,9 +82,8 @@ export async function GET(request: Request) {
     );
   }
 
-  const userId = user._id;
   try {
-    const foundUser = await UserModel.findById(userId);
+    const foundUser = await UserModel.findById(user._id);
 
     if (!foundUser) {
       return Response.json(
@@ -100,7 +99,7 @@ export async function GET(request: Request) {
     return Response.json(
       {
         success: true,
-        isAcceptingMesaages: foundUser.isAcceptingMessage,
+        isAcceptingMesaage: foundUser.isAcceptingMessage,
       },
       { status: 200 }
     );

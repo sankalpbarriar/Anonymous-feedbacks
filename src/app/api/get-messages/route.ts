@@ -5,7 +5,6 @@ import UserModel from "@/model/User.model";
 import { User } from "next-auth";
 import mongoose from "mongoose";
 
-
 //Route to show messages
 export async function GET(request: Request) {
   await dbConnect();
@@ -27,7 +26,7 @@ export async function GET(request: Request) {
 
   try {
     //aggregation pipeline
-    const user = await UserModel.aggregate([
+    const userMessages = await UserModel.aggregate([
       { $match: { id: userId } },
       { $unwind: "$messages" },
       { $sort: { "messages.createAt": -1 } },
@@ -35,20 +34,22 @@ export async function GET(request: Request) {
       { $group: { _id: "$_id", messages: { $push: "$messages" } } },
     ]);
 
-    if (!user || user.length === 0) {
+    if (!userMessages || userMessages.length === 0) {
       return Response.json(
         {
-          success: false,
-          message: "User not found",
+          success: true,
+          message: "No Messages"
         },
-        { status: 404 }
-      );
+        {
+          status: 200
+        }
+      )
     }
     // send messages
     return Response.json(
       {
         success: true,
-        message: user[0].messages,
+        message: userMessages[0].messages,
       },
       { status: 200 }
     );
