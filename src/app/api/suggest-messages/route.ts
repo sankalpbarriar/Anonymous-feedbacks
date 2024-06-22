@@ -45,7 +45,7 @@ export async function POST(req: Request) {
     if (error instanceof OpenAI.APIError) {
       // OpenAI API error handling
       const { name, status, headers, message } = error;
-      return NextResponse.json({ message }, { status:401});
+      return NextResponse.json({ message }, { status});
     } else {
       console.error("An unexpected error occurred:", error);
       throw error;

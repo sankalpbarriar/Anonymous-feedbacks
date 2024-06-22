@@ -27,7 +27,7 @@ export async function GET(request: Request) {
   try {
     //aggregation pipeline
     const userMessages = await UserModel.aggregate([
-      { $match: { id: userId } },
+      { $match: { _id: userId } },
       { $unwind: "$messages" },
       { $sort: { "messages.createAt": -1 } },
       //ab group kar ke bhej do
@@ -37,11 +37,11 @@ export async function GET(request: Request) {
     if (!userMessages || userMessages.length === 0) {
       return Response.json(
         {
-          success: true,
+          success: false,
           message: "No Messages"
         },
         {
-          status: 200
+          status: 404
         }
       )
     }

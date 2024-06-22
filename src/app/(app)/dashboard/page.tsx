@@ -37,7 +37,6 @@ export default function DashboardPage() {
     setIsSwitchLoading(true)
     try {
       const response = await axios.get<ApiResponse>("/api/accept-message")
-      console.log(response)
       setValue("acceptMessages", response?.data.isAcceptingMessage)
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>
@@ -59,7 +58,8 @@ export default function DashboardPage() {
       setIsSwitchLoading(false)
       try {
         const response = await axios.get<ApiResponse>("/api/get-messages")
-        setMessages(response.data.messages || [])
+        console.log(response.data.message);
+        setMessages(response.data.message || [])
         if (refresh) {
           toast({
             title: "Refreshed Messages",
@@ -93,7 +93,6 @@ export default function DashboardPage() {
       const response = await axios.post<ApiResponse>("/api/accept-message", {
         acceptMessages: !acceptMessages
       })
-      console.log(response.data)
       setValue('acceptMessages', !acceptMessages)
       toast({
         title: response.data.message || "updated succesfully",
@@ -182,18 +181,18 @@ export default function DashboardPage() {
           )}
         </Button>
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {messages.length > 0 ? (
-            messages.map((message, index) => (
-              <MessageCard
-                key={message._id as string}
-                message={message}
-                onMessageDelete={handleDeleteMessage}
-              />
-            ))
-          ) : (
-            <p className="text-gray-500">No messages to display.</p>
-          )}
-        </div>
+        {messages.length > 0 ? (
+          messages.map((message, index) => (
+            <MessageCard
+              key={message._id}
+              message={message}
+              onMessageDelete={handleDeleteMessage}
+            />
+          ))
+        ) : (
+          <p>No messages to display.</p>
+        )}
+      </div>
       </div>
     </>
   );
