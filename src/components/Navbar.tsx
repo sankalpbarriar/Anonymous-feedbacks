@@ -76,7 +76,7 @@ const Navbar = () => {
               <Button className='w-full md:w-auto mr-2 text-yellow-50'>Login</Button>
             </Link>
           )}
-          <Button onClick={handleMenuOpen} className='text-yellow-50'>
+          <Button onClick={handleMenuOpen} className='text-yellow-50 ml-2'>
             <MenuIcon />
             {usernames.length > 0 && (
               <span className="inline-block w-2 h-2 rounded-full bg-green-500 shadow-md shadow-green-500/50 ml-2 animate-ping delay-1000" />

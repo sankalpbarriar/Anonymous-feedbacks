@@ -54,7 +54,6 @@ export default function SignInForm() {
     }
   }
 
-
   return (
     <div className="flex justify-center items-center min-h-screen bg-bgColor">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
