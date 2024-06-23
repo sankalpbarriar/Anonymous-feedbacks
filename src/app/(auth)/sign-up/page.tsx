@@ -129,7 +129,7 @@ export default function SignUpForm() {
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <Input {...field} name="email" 
-                                    placeholder="test@test.com"
+                                    placeholder="email"
                                     />
                                     <FormMessage />
                                 </FormItem>
@@ -142,7 +142,7 @@ export default function SignUpForm() {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <Input type="password" {...field} name="password"
-                                    placeholder="123456"
+                                    placeholder="password"
                                     />
                                     <FormMessage />
                                 </FormItem>

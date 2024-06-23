@@ -13,11 +13,13 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { signInSchema } from "@/schemas/signInSchema"
 import { signIn } from "next-auth/react"
+import { LoaderCircle } from "lucide-react"
 
 
-export default function SignInForm(){
+export default function SignInForm() {
   const { toast } = useToast();
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   //implemetning zod
   const form = useForm<z.infer<typeof signInSchema>>({
@@ -29,6 +31,7 @@ export default function SignInForm(){
   });
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+    setIsSubmitting(true);
     const result = await signIn('credentials', {
       redirect: false,          //we will do our custom redirection
       identifier: data.identifier,
@@ -41,11 +44,13 @@ export default function SignInForm(){
         description: "incorrect username or password",
         variant: "destructive"
       })
+      setIsSubmitting(false);
     }
 
     // agar result me url aa raha hai matlab success hai
     if (result?.url) {
       router.replace('/dashboard')
+      setIsSubmitting(false);
     }
   }
 
@@ -90,7 +95,13 @@ export default function SignInForm(){
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full sm:w-auto flex justify-center items-center" >Sign-in
+            <Button type="submit" className="w-full sm:w-auto flex justify-center items-center" >{
+              isSubmitting ? (
+                <>
+                  <LoaderCircle className="mr-2 h-4 w-4 animate-spin" /> Please wait..
+                </>
+              ) : ('Signup')
+            }
             </Button>
           </form>
         </Form>

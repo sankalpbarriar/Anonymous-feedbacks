@@ -59,7 +59,7 @@ export default function DashboardPage() {
       try {
         const response = await axios.get<ApiResponse>("/api/get-messages")
         console.log(response.data.message);
-        setMessages(response.data.message || [])
+        setMessages(response.data.message as any|| [])
         if (refresh) {
           toast({
             title: "Refreshed Messages",

@@ -11,7 +11,10 @@
   "dependencies": {
     "@ai-sdk/openai": "^0.0.29",
     "@ai-sdk/react": "^0.0.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.6.0",
+    "@mui/material": "^5.15.20",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-separator": "^1.0.3",
