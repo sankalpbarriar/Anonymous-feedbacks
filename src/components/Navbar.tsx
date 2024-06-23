@@ -69,20 +69,17 @@ const Navbar = () => {
         <div className='flex items-center'>
           {session ? (
             <>
-              <span className='mr-4'>WELCOME, {user?.username || user?.email}</span>
-              <Button className='w-full md:w-auto mr-2' onClick={() => signOut()}>Logout</Button>
+              <Button className='w-full md:w-auto mr-2 text-yellow-50'  onClick={() => signOut()}>Logout</Button>
             </>
           ) : (
             <Link href='/sign-in'>
-              <Button className='w-full md:w-auto mr-2'>Login</Button>
+              <Button className='w-full md:w-auto mr-2 text-yellow-50'>Login</Button>
             </Link>
           )}
-          <Button onClick={handleMenuOpen}>
+          <Button onClick={handleMenuOpen} className='text-yellow-50'>
             <MenuIcon />
             {usernames.length > 0 && (
-              <span
-                className="inline-block w-2 h-2 rounded-full bg-green-500 shadow-md shadow-green-500/50 ml-2 animate-ping delay-1000"
-              />
+              <span className="inline-block w-2 h-2 rounded-full bg-green-500 shadow-md shadow-green-500/50 ml-2 animate-ping delay-1000" />
             )}
           </Button>
           <Menu
