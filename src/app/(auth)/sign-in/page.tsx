@@ -15,7 +15,7 @@ import { signInSchema } from "@/schemas/signInSchema"
 import { signIn } from "next-auth/react"
 
 
-const page = () => {
+export default function SignInForm(){
   const { toast } = useToast();
   const router = useRouter();
 
@@ -96,7 +96,7 @@ const page = () => {
         </Form>
         <div className="text-center mt-4">
           <p>
-            Don't have an account?{' '}
+            Dont have an account?{' '}
             <Link href={'/sign-up'} className="text-orange-600 hover:text-orange-800">
               Sign up</Link>
           </p>
@@ -105,5 +105,3 @@ const page = () => {
     </div>
   )
 }
-
-export default page

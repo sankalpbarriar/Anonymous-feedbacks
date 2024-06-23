@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button"
 import { Loader2, LoaderCircle, LoaderPinwheel, LucideLoaderCircle } from "lucide-react"
 
 
-const page = () => {
+export default function SignUpForm() {
     const [username, setUsername] = useState('')
     const [usernameMessage, setUsernameMessage] = useState('')  //backend se koi msg aaya to
     const [isCheckingUsername, setIsCheckingUsername] = useState(false) //loading state...
@@ -171,5 +171,3 @@ const page = () => {
         </div>
     )
 }
-
-export default page
